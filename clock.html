@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #bg {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(./bg.jpg);
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter:blur(5px);
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        body {
+            margin: 0;
+        }
+        #clock{
+            width:500px;
+            height:500px;
+            border-radius: 50%;
+            /* background: sienna; */
+            margin: auto;
+            position: relative;
+            
+        }
+        #circleA{
+            width:6%;
+            height:6%;
+            border-radius: 50%;
+            background: #444442;
+            top:47%;
+            left:47%;
+            margin: auto;
+            box-shadow: 1px 1px 3px 1px #080808;
+            position: absolute;
+            z-index:999;
+        }
+        #hms{
+            width:16%;
+            height:16%;
+            border-radius: 50%;
+            background: #a5da15;
+            top:42%;
+            left:42%;
+            margin: auto;
+            box-shadow: 5px 5px 15px 1px #080808;
+            position: absolute;
+        }
+        #second{
+            position: absolute;
+            width:50%;
+            height:4px;
+            background: #d0dbba;
+            left:5%;
+            top:calc(50% - 2px);
+            transform-origin: 90% 50%;
+            border-radius: 3px;
+            box-shadow: 1px 1px 5px 1px #080808;
+        }
+        #minute{
+            position: absolute;
+            width:45%;
+            height:6px;
+            background: #73a8a1;
+            left:10%;
+            top:calc(50% - 3px);
+            transform-origin: 90% 50%;
+            border-radius: 3px;
+            box-shadow: 1px 1px 5px 1px #080808;
+        }
+        #hour{
+            position: absolute;
+            width:25%;
+            height:8px;
+            background: #ce90b9;
+            left:28%;
+            top:calc(50% - 4px);
+            transform-origin: 90% 50%;
+            border-radius: 3px;
+            box-shadow: 1px 1px 5px 1px #080808;
+        }
+        #num0{
+            position: absolute;
+            width: 15%;
+            left: 50%;
+            top: 5%;
+            transform: rotate(90deg);            
+        }
+        #num1{
+            position: absolute;
+            width: 10%;
+            left: 74%;
+            top: calc(9% - 5px);
+            transform: rotate(120deg);            
+        }
+        #num2{
+            position: absolute;
+            width: 10%;
+            left: 93%;
+            top: calc(25% - 5px);
+            transform: rotate(150deg);            
+        }
+        #num3{
+            position: absolute;
+            width: 15%;
+            left: 97%;
+            top: calc(50% - 5px);
+            transform: rotate(180deg);            
+        }
+        #num4{
+            position: absolute;
+            width: 10%;
+            left: 88%;
+            top: calc(72% - 5px);
+            transform: rotate(210deg);            
+        }
+        #num5{
+            position: absolute;
+            width: 10%;
+            left: 71%;
+            top: calc(86% - 5px);
+            transform: rotate(240deg);            
+        }
+        #num6{
+            position: absolute;
+            width: 15%;
+            left: 50%;
+            top: calc(92% - 5px);
+            transform: rotate(270deg);            
+        }
+        #num7{
+            position: absolute;
+            width: 10%;
+            left: 26%;
+            top: calc(92% - 5px);
+            transform: rotate(300deg);            
+        }
+        #num8{
+            position: absolute;
+            width: 10%;
+            left: 14%;
+            top: calc(71% - 5px);
+            transform: rotate(330deg);            
+        }
+        #num9{
+            position: absolute;
+            width: 15%;
+            left: 3%;
+            top: calc(50% - 5px);
+            transform: rotate(360deg);            
+        }
+        #num10{
+            position: absolute;
+            width: 10%;
+            left: 7%;
+            top: calc(25% - 5px);
+            transform: rotate(30deg);            
+        }
+        #num11{
+            position: absolute;
+            width: 10%;
+            left: 26%;
+            top: calc(8% - 5px);
+            transform: rotate(60deg);            
+        }
+        .num{
+            height: 10px;
+            background: #a5da15;
+            transform-origin: left center;
+            
+            box-shadow: 5px 5px 15px 1px #080808;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg"></div>
+    <div id="clock">
+        <div id="circleA"></div>
+        <div id="num1" class="num"></div>
+        <div id="num2" class="num"></div>
+        <div id="num3" class="num"></div>
+        <div id="num4" class="num"></div>
+        <div id="num5" class="num"></div>
+        <div id="num6" class="num"></div>
+        <div id="num7" class="num"></div>
+        <div id="num8" class="num"></div>
+        <div id="num9" class="num"></div>
+        <div id="num10" class="num"></div>
+        <div id="num11" class="num"></div>
+        <div id="num0" class="num"></div>
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+    <script>
+        let hour = document.getElementById("hour");
+        let minute = document.getElementById("minute");
+        let second = document.getElementById("second");
+        let time = document.getElementById("time");
+
+        function fun_clock() {
+            let date = new Date();
+            let h = date.getHours();
+            let m = date.getMinutes();
+            let s = date.getSeconds();
+            // hour.style.transform = `rotate( ${h*30+90}deg )`;  /* 360/12 */
+            hour.style.transform = `rotate( ${h*30+m*0.5+90}deg )`;  /* 360/12 */
+            minute.style.transform = `rotate( ${m*6+90}deg )`;  /* 360/60 */
+            second.style.transform = `rotate( ${s*6+90}deg )`;  /* 360/60 */
+        }
+        fun_clock();
+        setInterval(fun_clock, 1000);
+    </script>
+</body>
+</html>
