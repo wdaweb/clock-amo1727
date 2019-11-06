@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>時鐘</title>
     <style>
         #bg {
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(./bg.jpg);
@@ -212,10 +212,9 @@
             let h = date.getHours();
             let m = date.getMinutes();
             let s = date.getSeconds();
-            // hour.style.transform = `rotate( ${h*30+90}deg )`;  /* 360/12 */
-            hour.style.transform = `rotate( ${h*30+m*0.5+90}deg )`;  /* 360/12 */
-            minute.style.transform = `rotate( ${m*6+90}deg )`;  /* 360/60 */
-            second.style.transform = `rotate( ${s*6+90}deg )`;  /* 360/60 */
+            hour.style.transform = `rotate( ${h*30+m*0.5+90}deg )`;
+            minute.style.transform = `rotate( ${m*6+90}deg )`;
+            second.style.transform = `rotate( ${s*6+90}deg )`;
         }
         fun_clock();
         setInterval(fun_clock, 1000);
